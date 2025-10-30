@@ -5,6 +5,8 @@ import habsida.spring.boot_security.demo.models.User;
 import habsida.spring.boot_security.demo.service.RoleService;
 import habsida.spring.boot_security.demo.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,7 +33,11 @@ public class    UserController {
         return "redirect:/admin/users";
     }
     @GetMapping("/user")
-    public String personal() {
+    public String userPage(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User currentUser = (User) authentication.getPrincipal();
+
+        model.addAttribute("currentUser", currentUser);
         return "user";
     }
 
