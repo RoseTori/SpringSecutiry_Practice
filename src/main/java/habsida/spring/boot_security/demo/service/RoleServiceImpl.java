@@ -4,7 +4,6 @@ import habsida.spring.boot_security.demo.models.Role;
 import habsida.spring.boot_security.demo.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -31,7 +30,4 @@ public class RoleServiceImpl implements RoleService {
     public Optional<Role> findByName(String name) { // Исправлено: параметр name вместо role
         return roleRepository.findByName(name);
     }
-
-
-
 }

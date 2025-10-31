@@ -13,15 +13,15 @@
     <p><strong>Last Name:</strong> <span th:text="${currentUser.lastName}"></span></p>
     <p><strong>Roles:</strong>
         <span th:each="role, iterStat : ${currentUser.roles}">
-            <span th:text="${role.name}"></span>
-            <span th:if="${!iterStat.last}">, </span>
-        </span>
+                <span th:text="${#strings.replace(role.name, 'ROLE_', '')}"></span>
+                <span th:if="${!iterStat.last}">, </span>
+            </span>
     </p>
 </div>
 <div th:if="${currentUser != null}">
     <div th:each="role : ${currentUser.roles}">
         <a th:if="${role.name == 'ROLE_ADMIN'}"
-           th:href="@{/admin/users}"
+           th:href="@{/admin/list}"
            class="btn btn-primary">
             Admin Panel
         </a>

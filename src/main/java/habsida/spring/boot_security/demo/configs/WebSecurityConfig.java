@@ -1,6 +1,6 @@
 package habsida.spring.boot_security.demo.configs;
 
-import habsida.spring.boot_security.demo.service.UserService;
+import habsida.spring.boot_security.demo.service.CustomDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -15,10 +15,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final SuccessUserHandler successUserHandler;
-    private final UserService userService;
+    private final CustomDetailsService customDetailsService;
 
-    public WebSecurityConfig(SuccessUserHandler successUserHandler, UserService userService) {
-        this.userService = userService;
+    public WebSecurityConfig(SuccessUserHandler successUserHandler, CustomDetailsService customDetailsService) {
+        this.customDetailsService = customDetailsService;
         this.successUserHandler = successUserHandler;
     }
 
@@ -40,7 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(customDetailsService).passwordEncoder(passwordEncoder());
     }
 
     @Bean
@@ -50,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public static PasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }
